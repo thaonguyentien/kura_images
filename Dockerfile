@@ -44,7 +44,7 @@ RUN apt-get update && \
 
 ## Kura installation
 RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
-RUN sudo gdebi kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
+RUN sudo dpkg -i kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
 RUN rm kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
 
 ## Hack for debian/jessie
