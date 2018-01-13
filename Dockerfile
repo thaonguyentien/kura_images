@@ -41,7 +41,6 @@ LABEL description="Rhiot docker image"
 RUN apt-get update && \
     apt-get install -y apt-utils unzip ethtool dos2unix telnet bind9 hostapd isc-dhcp-server iw monit wget openjdk-7-jdk --no-install-recommends  && \
     rm -rf /var/lib/apt/lists/*
-RUN  apt-get purge dhcpcd5
 RUN  apt-get remove network-manager
 RUN  apt-get update
 RUN wget http://download.eclipse.org/kura/releases/2.1.0/kura_2.1.0_raspberry-pi-2-3_installer.deb
