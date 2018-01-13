@@ -43,7 +43,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ## Kura installation
-RUN wget https://s3.amazonaws.com/kura_downloads/raspbian/release/${KURA_VERSION}/kura_${KURA_VERSION}_${RPI_VERSION}_installer.deb
+RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
 RUN dpkg -i kura_${KURA_VERSION}_${RPI_VERSION}_installer.deb
 RUN rm kura_${KURA_VERSION}_${RPI_VERSION}_installer.deb
 
