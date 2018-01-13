@@ -43,6 +43,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN dpkg --configure -a 
 RUN  apt-get update
+RUN  dpkg --remove linux-server
+RUN apt-get install -f
 
 ## Kura installation
 RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
@@ -76,3 +78,5 @@ EXPOSE 5002
 
 ## Main start
 CMD ${RHIOT_BIN_FOLDER}/start_kura_rhiot.sh
+
+RUN apt-get install linux-server
