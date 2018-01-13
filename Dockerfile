@@ -79,4 +79,3 @@ EXPOSE 5002
 ## Main start
 CMD ${RHIOT_BIN_FOLDER}/start_kura_rhiot.sh
 
-RUN apt-get install linux-server
