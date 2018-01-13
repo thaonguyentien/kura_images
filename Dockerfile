@@ -42,8 +42,9 @@ RUN apt-get update && \
     apt-get install -y apt-utils unzip ethtool dos2unix telnet bind9 hostapd isc-dhcp-server iw monit wget openjdk-7-jdk --no-install-recommends  && \
     rm -rf /var/lib/apt/lists/*
 RUN dpkg --configure -a 
-RUN  apt-get update
-RUN  dpkg --remove linux-server
+RUN apt-get update
+RUN dpkg --remove linux-server
+RUN dpkg --configure -a --force-depends
 RUN apt-get install -f
 
 ## Kura installation
