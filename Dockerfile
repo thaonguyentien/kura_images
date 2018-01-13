@@ -43,6 +43,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN  apt-get update
 RUN wget http://download.eclipse.org/kura/releases/2.1.0/kura_2.1.0_raspberry-pi-2-3_installer.deb
+RUN apt-get install gdebi-core
 RUN  gdebi kura_2.1.0_raspberry-pi-2-3_installer.deb
 
 # ## Kura installation
