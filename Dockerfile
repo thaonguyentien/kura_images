@@ -47,10 +47,10 @@ RUN dpkg --remove linux-server
 RUN dpkg --configure -a --force-depends
 RUN apt-get install -f
 
-## Kura installation
-RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
-RUN sudo dpkg -i kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
-RUN rm kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
+# ## Kura installation
+# RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
+# RUN sudo dpkg -i kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
+# RUN rm kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
 
 ## Hack for debian/jessie
 RUN if [ -d $(dirname `find /lib -name libudev.so.1`) ] && [ ! -f $(dirname `find /lib -name libudev.so.1`)/libudev.so.0 ] ; then ln -sf `find /lib -name libudev.so.1` $(dirname `find /lib -name libudev.so.1`)/libudev.so.0; fi
