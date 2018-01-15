@@ -15,9 +15,9 @@
 # limitations under the License.
 #
 
-FROM resin/rpi-raspbian:jessie
+FROM resin/rpi-raspbian:latest
 
-MAINTAINER Greg AUTRIC <gautric@redhat.com>
+MAINTAINER NTT-TNN <nguyentienthao@gmail.com>
 
 ## Variable ENV
 ENV CAMEL_VERSION=${CAMEL_VERSION:-2.16.1}
@@ -32,19 +32,15 @@ ENV RHIOT_HOME=/opt/rhiot
 ENV RHIOT_EMBEDDED_PLUGINS_FOLDER=${RHIOT_HOME}/plugins-embedded
 ENV RHIOT_BIN_FOLDER=${RHIOT_HOME}/bin
 
-LABEL version="${RHIOT_VERSION}"
-LABEL project="Rhiot"
-LABEL projectURL="http://rhiot.io"
-LABEL description="Rhiot docker image"
 
 ## Debian/Raspbian package installation
 RUN apt-get update && \
     apt-get install -y apt-utils unzip ethtool dos2unix telnet bind9 hostapd isc-dhcp-server iw monit wget openjdk-7-jdk --no-install-recommends  && \
     rm -rf /var/lib/apt/lists/*
-RUN  apt-get update
+    
 RUN wget http://download.eclipse.org/kura/releases/2.1.0/kura_2.1.0_raspberry-pi-2-3_installer.deb
 RUN apt-get install gdebi-core
-RUN  gdebi kura_2.1.0_raspberry-pi-2-3_installer.deb
+RUN  dpkg -i kura_2.1.0_raspberry-pi-2-3_installer.deb
 
 # ## Kura installation
 # RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
@@ -54,28 +50,12 @@ RUN  gdebi kura_2.1.0_raspberry-pi-2-3_installer.deb
 ## Hack for debian/jessie
 RUN if [ -d $(dirname `find /lib -name libudev.so.1`) ] && [ ! -f $(dirname `find /lib -name libudev.so.1`)/libudev.so.0 ] ; then ln -sf `find /lib -name libudev.so.1` $(dirname `find /lib -name libudev.so.1`)/libudev.so.0; fi
 
-RUN mkdir -p ${RHIOT_EMBEDDED_PLUGINS_FOLDER}
-RUN mkdir -p ${RHIOT_BIN_FOLDER}
-
-## Rhiot installation
-RUN wget -P ${RHIOT_EMBEDDED_PLUGINS_FOLDER} https://repo1.maven.org/maven2/org/apache/camel/camel-core/${CAMEL_VERSION}/camel-core-${CAMEL_VERSION}.jar
-RUN wget -P ${RHIOT_EMBEDDED_PLUGINS_FOLDER} https://repo1.maven.org/maven2/org/apache/camel/camel-core-osgi/${CAMEL_VERSION}/camel-core-osgi-${CAMEL_VERSION}.jar
-RUN wget -P ${RHIOT_EMBEDDED_PLUGINS_FOLDER} https://repo1.maven.org/maven2/org/apache/camel/camel-kura/${CAMEL_VERSION}/camel-kura-${CAMEL_VERSION}.jar
-RUN wget -P ${RHIOT_EMBEDDED_PLUGINS_FOLDER} https://repo1.maven.org/maven2/io/rhiot/camel-kura/${RHIOT_VERSION}/camel-kura-${RHIOT_VERSION}.jar
-
-## Add file
-ADD ./config.ini.sh       ${RHIOT_BIN_FOLDER}/
-ADD ./start_kura_rhiot.sh ${RHIOT_BIN_FOLDER}/
-ADD ./log4j.properties    /opt/eclipse/kura/kura
-
-## Custom Kura installation
-RUN chmod 755 ${RHIOT_BIN_FOLDER}/*.sh
-RUN ${RHIOT_BIN_FOLDER}/config.ini.sh
-
 ## Web and telnet
 EXPOSE 80
 EXPOSE 5002
+EXPOSE 1450
+
 
 ## Main start
-CMD ${RHIOT_BIN_FOLDER}/start_kura_rhiot.sh
+CMD service kura start && while true
 
