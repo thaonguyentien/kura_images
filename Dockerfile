@@ -23,7 +23,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 # RUN add-apt-repository ppa:openjdk-r/ppa 
 RUN apt-get update   
 RUN apt-get install -y openjdk-8-jre-headless
-RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main"
+# RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main"
 ## Debian/Raspbian package installation
 RUN apt-get update && \
     apt-get install -y apt-utils unzip ethtool dos2unix telnet bind9 hostapd isc-dhcp-server iw monit wget openjdk-7-jdk --no-install-recommends  && \
