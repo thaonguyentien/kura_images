@@ -30,13 +30,13 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 
-RUN wget http://download.eclipse.org/kura/releases/2.1.0/kura_2.1.0_raspberry-pi-2-3_installer.deb
+RUN wget http://download.eclipse.org/kura/releases/3.1.0/kura_3.1.0_raspberry-pi-2-3_installer.deb
 # RUN apt-get install gdebi-core
 # RUN apt-get purge dhcpcd5
 # RUN apt-get remove network-manager
 RUN apt-get update
 RUN apt install -y wireless-tools
-RUN dpkg -i kura_2.1.0_raspberry-pi-2-3_installer.deb
+RUN dpkg -i kura_3.1.0_raspberry-pi-2-3_installer.deb
 
 # ## Kura installation
 # RUN wget http://download.eclipse.org/kura/releases/${KURA_VERSION}/kura_${KURA_VERSION}_raspberry-pi-2-3_installer.deb
