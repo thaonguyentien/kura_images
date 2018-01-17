@@ -29,7 +29,6 @@ RUN apt-get update && \
     apt-get install -y apt-utils unzip ethtool dos2unix telnet bind9 hostapd isc-dhcp-server iw monit wget openjdk-7-jdk --no-install-recommends  && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y bluez
 RUN wget http://download.eclipse.org/kura/releases/3.1.0/kura_3.1.0_raspberry-pi-2-3_installer.deb
 # RUN apt-get install gdebi-core
 # RUN apt-get purge dhcpcd5
